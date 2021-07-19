@@ -1,25 +1,27 @@
-import logo from './logo.svg';
-import './App.css';
+import { Step, Steps, useSteps } from "chakra-ui-steps"
 
-function App() {
+import { VStack} from "@chakra-ui/react"
+
+const steps = [
+  { label: "Step 1" },
+  { label: "Step 2" },
+  { label: "Step 3" },
+]
+
+const App = () => {
+  const { nextStep, prevStep, reset, activeStep } = useSteps({
+    initialStep: 0,
+  })
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+    <VStack width="100%">
+      <Steps activeStep={activeStep} orientation="vertical" alignSelf="center">
+        {steps.map(({ label, content }) => (
+          <Step label={label} key={label}>
+            {content}
+          </Step>
+        ))}
+      </Steps>
+    </VStack>
+  )
 }
-
 export default App;
